@@ -1,0 +1,59 @@
+<div class="header_section">Demo Backtesting</div>
+
+
+    <script>
+        $(document).ready(function(){
+            $('.datepicker').pickadate({
+                selectYears: 4, // Creates a dropdown of 14 years to control year
+                min: new Date(2014,3,31),
+                max: new Date,
+            });
+
+            $('select').material_select();
+        });
+    </script>
+<div ng-controller="demoController">
+    <div style="text-align: center;">
+        <label for="picker_label">Select Date</label>
+        <input style="width:150px;" ng-model="interval" id="picker_label" type="text" class="datepicker"><i style="" class="material-icons">date_range</i>
+    </div>
+    <div style="text-align: center;">
+            <button ng-if="buttonClicked" ng-disabled="!interval" class="btn waves-effect waves-light" type="submit" name="action" ng-click="update()">Next
+                <i class="material-icons right">send</i>
+            </button>
+
+    </div>
+    <br>
+    <img ng-if="buttonClicked" style="width:10%; margin-left: 45%;padding-bottom: 20px;" src="../img/rewind-time.png">
+
+    <div ng-if="!buttonClicked && spinner">
+        <div style="width: 100%;" class="progress">
+            <div  class="indeterminate"></div>
+        </div>
+        <br>
+    </div>
+    <div class="row container" ng-if="amount!=null">
+
+        <div  style="background-color: white" class="collection col l7 m6 s12">
+            <div style="display: block;line-height: 32px;margin-bottom: 8px;color:teal;font-size: 26px;font-weight: 300;margin-top: 26px;">Backtest Demo Class<br></div>
+            <realtime-line-graph ng-if="amount!=null" vertical-axis="amount" horizzontal-axis="timestamp"
+                                 realtime="false" show-dates="true"></realtime-line-graph>
+        </div>
+        <ul class="collection col l5 m6 s12">
+            <li ng-if="strategy.getCurrentStrategy()!=null && isCustom==true" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt">
+                <span style="font-size:24px;font-weight:500;color: teal" class="title">{{strategy.getCurrentStrategy().getName()}}</span>
+                <a class="secondary-content"><button class="btn" style="margin:5pt" ng-click="updateOwn(strategy.getCurrentStrategy().getName(), strategy.getCurrentStrategy().getAssets())">Try</button></a>
+            </li>
+            <li ng-if="defStrategy.name != currentStrategy.getName()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
+                <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
+                <!-- <div style="width:50pt">
+                  <assets-class-graph percentages="[1,2,3,4]" show-chips="false"></assets-class-graph>
+                </div> -->
+                <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn" style="margin:5pt" ng-click="update(defStrategy.name)">Try</button></a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+
+</html>

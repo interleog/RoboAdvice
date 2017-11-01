@@ -1,0 +1,61 @@
+<style>
+    body {
+        background: #f9f9f9;
+    }
+</style>
+
+
+
+
+<div class="row container">
+    <div class="col s12 m3">
+    </div>
+    <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
+        <div class="card " style="text-align:center;background-color:#F8FFE5">
+          <p style="padding-top: 20px;font-size:15px;margin-bottom: 20px;" >
+            If you had chosen the {{backtestingStrategy.getName()}} on the selected date <br> your current amount would be
+            <b ng-if="backtestingDifference > 0" style="font-size:15pt;font-style: italic" class="green-text">+{{backtestingDifference | number: 2}} $ higher</b>
+            <b ng-if="backtestingDifference < 0" style="font-size:15pt;font-style: italic" class="red-text">{{backtestingDifference | number: 2}} $ lower</b>
+
+          </p>
+            <div class="card-action " style="background-color:#CBD1BC">
+                <button class="btn" wz-reset><i  class="material-icons">date_range</i>Test again</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="" style="max-width:90%;margin: auto;">
+    <!-- first Card -->
+    <div class="row">
+        <div class="col l8 m12 s12">
+            <div class="card white">
+                <div class="card-content teal-text" ng-controller="RealtimeGraphController">
+                    <span class="card-title">{{backtestingStrategy.getName()}} Trend</span>
+                    <div>
+                        <realtime-line-graph ng-if="$ctrl.yAxis" vertical-axis="$ctrl.yAxis" horizzontal-axis="$ctrl.francesca"
+                                             realtime="false" show-dates="true"></realtime-line-graph>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- backtesting summary -->
+        <div style="height:140%" class="col l4 m12 s12">
+            <div class="card grey lighten-4">
+                <div class="card-content">
+                    <span style="color:black;" class="card-title teal-text">Summary</span><br />
+                    <span style="color:black">Strategy: <b>{{backtestingStrategy.getName()}}</b></span><br />
+                    <span style="color:black">Current Amount: <b>{{backtestingStrategy.getFinalAmount() | number : 2}}$</b></span><br />
+                    <span style="color:black">Backtested Final Amount: <b>{{$ctrl.yAxis[($ctrl.yAxis.length)-1] | number : 2}}$</b></span><br />
+                </div>
+                <div style=" margin:5pt;margin-left:8pt;height:37.5% ">
+                    <assets-class-graph percentages="backtestingStrategy.getAssets()"></assets-class-graph>
+                </div>
+
+            </div>
+        </div>
+    </div>

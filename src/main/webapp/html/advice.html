@@ -1,0 +1,57 @@
+<div class="header_section">Advice</div>
+
+<div class="row container">
+    <div class="col s12 m3">
+    </div>
+    <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
+        <div class="card " style="text-align:center;background-color:#F8FFE5">
+            <div style="padding-top: 20px;
+    font-size: 15px;
+    margin-bottom: 20px;" >
+                The Advice tool shows you the trend of the market based on RoboAdvice default strategies. <br>
+            </div>
+            <div class="card-action " style="background-color:#CBD1BC ">
+                Feel free to switch to one of them anytime!
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div style=" width: 80%; margin: 0 auto;" ng-controller="AdviceController">
+    <div class="row">
+        <div class="col l5 m12 s12">
+            <div class="card grey lighten-3">
+                <div class="card-content" style="text-align:center">
+                    <span style="color:black;"class="card-title teal-text">Current strategy: <b>{{currentStrategy.getName()}}</b> </span>
+                    <span style="color:black;"class="card-title teal-text">Type:<b>{{currentStrategyTipology}}</b> </span>
+                </div>
+                <div style=" margin:5pt;margin-left:8pt;height:auto">
+                    <assets-class-graph percentages=currentStrategy.getAssets()></assets-class-graph>
+                </div>
+                <br/>
+            </div>
+        </div>
+        <ul class="collection col l7 m12 s12">
+            <li ng-if="defStrategy.name != currentStrategy.getName()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies | orderBy: adviceAmount[$index] ">
+                <i class="material-icons circle">cached</i>
+                <i ng-if="advicePercentage[$index] > 0" style="color:#F44336;font-size:38px;" class="material-icons circle brown lighten-4 winning">trending_up</i>
+                <i ng-if="advicePercentage[$index] < 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
+                <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
+                <div  style="width: 70%;" ng-show="loadingInProgress" class="progress">
+                    <div  class="indeterminate"></div>
+                </div>
+                <div>
+                    <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
+                </div>
+                <span ng-if="defStrategy.name != currentStrategy.getName()" style="font-size:19px;font-weight: 400;color:#666;">Amount: ${{adviceAmount[$index] | number:2}}</span>
+                <span style="background-color: #E8BE5D;margin-top: 10px;background-color: #E8BE5D; margin-bottom: 4px;margin-right: 3px;" ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Suggested strategy"></span>
+
+                </p>
+                <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn"  ng-click="changeStrategy($index)">Change</button></a>
+            </li>
+        </ul>
+    </div>
+</div>

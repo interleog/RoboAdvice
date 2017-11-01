@@ -1,0 +1,54 @@
+
+<div class="header_section">Welcome</div>
+<head>
+	<meta charset="utf-8">
+	<title>Login to Robo Adviser</title>
+</head>
+
+<body class="login-body">
+<div class="row">
+	<div class="input-cart col s12 m10 push-m1 z-depth-2 grey lighten-5">
+		<!-- passage of the userObj to the component -->
+		<sign-in myuser='user'></sign-in>
+		<!-- Signup form -->
+		<div class="col s12 m7 signup">
+			<sign-up myuser='user'></sign-up>
+			<div class="signup-toggle center" >
+				<h4 class="center">Have No Account ? <a style="color:darkcyan;font-weight:300; "class="signup-toggle">Sign Up</a></h4>
+			</div>
+		</div>
+		<div class="col s12">
+			<br>
+			<div class="legal center">
+			</div>
+			<div class="legal center">
+				<div class="col s12 m7 right">
+					<p class="grey-text policy center">By signing up, you agree on our <a style="color:teal;"href="#!/privacy">Privacy Policy</a> and  <a style="color:teal;" href="#!/cookie">Cookie Use</a>.</p>
+				</div>
+				<div class="col s12 m5">
+					<!-- <p class="center grey-text" style="font-size: 14px;">Coding : <a href="http://fb.com/celyes17" class="main-title red-text">Celyes</a></p>-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
+
+</body>
+
+<script>
+
+    jQuery(document).ready(function($){
+        //$(".dropdown-button").dropdown();
+        //$('.modal').modal();
+
+        $(".signup-toggle").click(function(){
+            $(this).hide();
+            $(".signupForm").show(300);
+            $(".policy").css("visibility","visible");
+        });
+
+    });
+
+</script>

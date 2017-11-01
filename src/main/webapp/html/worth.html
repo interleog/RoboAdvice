@@ -1,0 +1,80 @@
+<style>
+
+    body {
+        background: #f9f9f9;
+    }
+
+</style>
+
+
+<div>
+
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="header_section">Balance
+            <div class="row">
+                <div class="col s12 m3" ng-repeat="difference in portfolio.getPortfolioDifferences() track by $index">
+                  <!--  <div class="card teal lighten-4"> #E8BE5D  previous color teal-->
+                        <div class="card" style="background-color:#E8BE5D">
+                        <div class="card waves-effect waves-block waves-light">
+                            <img class="activator" >
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4" style="font-size: 22px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">keyboard_arrow_up</i></span>
+                            <!--   <p><a> {{difference | number : 2}}%</a></p> -->
+                            <div>
+                                <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
+                                <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
+                                <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
+                            </div>
+                            <div style="font-size:20pt;letter-spacing:1pt">{{difference.percentage | number : 2}}%</div>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" > <!--{{CONFIG["ASSETS_NAME"][$index]}} --></span><i class="material-icons right">close</i></span>
+                            <span class="" style="font-size:20pt;letter-spacing:1pt;">${{difference.amount}} </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="!(user.currentPortfolio == null)">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card white">
+                        <div class="card-content teal-text">
+                            <span class="card-title">Worth</span>
+                            <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="container">
+    <div class="container">
+        <div class="container">
+
+            <div ng-if="(user.currentPortfolio) == null">
+                <div ng-if="user.currentPortfolio == null">
+                    <div  class="col m4 s12">
+                        <div class="card">
+                            <div style="text-align: center;" class="card-content">
+                                <span style="color:black;"class="card-title">Your balance will be updated tomorrow </span></span>
+                                <img  style="width:70%" src="../img/001-analytics-3.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
